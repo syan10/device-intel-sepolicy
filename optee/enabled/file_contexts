@@ -1,0 +1,11 @@
+# optee ipc device
+/dev/tee0    u:object_r:tee_device:s0
+/dev/teepriv0    u:object_r:tee_device:s0
+
+# optee supllicant service
+/vendor/bin/tee-supplicant    u:object_r:tee_exec:s0
+
+/persist(/.*)?                u:object_r:tee_persist_data:s0
+
+# optee keymaster treble service
+/vendor/bin/hw/android.hardware.keymaster@3.0-service.optee       u:object_r:hal_keymaster_default_exec:s0

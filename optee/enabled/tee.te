@@ -1,0 +1,33 @@
+
+#============= hal_keymaster_default ==============
+allow hal_keymaster_default vendor_data_file:dir create_dir_perms;
+allow hal_keymaster_default vendor_data_file:file create_file_perms;
+
+#============= tee ==============
+allow tee vendor_data_file:dir create_dir_perms;
+allow tee vendor_data_file:file create_file_perms;
+
+allow tee tee_persist_data:file create_file_perms;
+allow tee tee_persist_data:dir create_dir_perms;
+
+allow tee rpmb_virt_device:chr_file { open read write };
+allow tee self:capability { sys_rawio setgid setuid };
+allow tee block_device:dir search;
+allow tee tee_device:blk_file rw_file_perms;
+allow tee tee_data_file:sock_file { write create };
+allow tee gsi_metadata_file:dir search;
+allow tee metadata_file:dir search;
+
+#============= init ==============
+allow init tee_persist_data:dir mounton;
+
+#============= fsck ==============
+allow fsck tee_device:blk_file { ioctl open read write };
+
+#============= e2fs ==============
+allow e2fs tee_device:blk_file { open read write ioctl };
+
+allowxperm e2fs tee_device:blk_file ioctl { BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET };
+
+#============= vold ==============
+#allow vold tee_persist_data:dir { ioctl open read };
